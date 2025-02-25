@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <h2 style="text-align: center; font-weight: bold; color: #2c3e50;"> Your Favorite Blogs</h2>
+
+    <div id="favoritesContainer" 
+         class="d-flex flex-column align-items-center" 
+         style="margin-top: 20px; gap: 20px;">
+        <!-- Favorite blogs will be added dynamically -->
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <button class="btn btn-dark mt-3" onclick="clearFavorites()" 
+              style="padding: 12px 24px; font-size: 18px; border-radius: 10px; background: #34495e; color: white;">
+        Clear Favorites
+      </button>
+    </div>
+</div>
+
+<script>
+    function loadFavorites() {
+        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        let container = document.getElementById("favoritesContainer");
+        container.innerHTML = "";
+
+        favorites.forEach((blog) => {
+            container.innerHTML += `
+                <div class="card shadow-lg border-0 d-flex flex-row align-items-center" 
+                     style="border-radius: 15px; overflow: hidden; transition: 0.3s ease-in-out; 
+                            box-shadow: 0px 10px 20px rgba(0,0,0,0.1); max-width: 750px; width: 100%;
+                            background: #ecf0f1; display: flex; align-items: center; padding: 15px;">
+
+                    <!-- Image (Left Side) -->
+                    <img src="${blog.image}" 
+                         class="card-img-left" 
+                         style="height: 180px; width: 250px; object-fit: cover; border-radius: 10px; 
+                                margin-right: 15px;">
+
+                    <!-- Text & Buttons (Right Side) -->
+                    <div class="card-body" style="flex: 1;">
+                        <h5 class="card-title" 
+                            style="color: #2c3e50; font-weight: bold; font-size: 22px;">
+                            ${blog.title}
+                        </h5>
+                        <p style="color: #555; font-size: 14px; line-height: 1.5;">
+                            ${blog.description || "No description available"}
+                        </p>
+                        <a href="/blog/${blog.id}" class="btn btn-primary" 
+                           style="padding: 10px 20px; font-size: 16px; text-decoration:none; color:white; margin-right:5px; border-radius: 5px; background: #2980b9; border: none;">
+                            Read More
+                        </a>
+                        <button class="btn btn-warning mt-2" onclick="removeFavorite('${blog.id}')"
+                                style="padding: 8px 16px; font-size: 16px; border-radius: 5px; background: #f39c12; border: none;">
+                            Remove
+                        </button>
+                    </div>
+                </div>`;
+        });
+    }
+
+    function removeFavorite(blogId) {
+        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        favorites = favorites.filter((blog) => blog.id !== blogId);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        loadFavorites();
+    }
+
+    function clearFavorites() {
+        localStorage.removeItem("favorites");
+        loadFavorites();
+    }
+
+    document.addEventListener("DOMContentLoaded", loadFavorites);
+</script>

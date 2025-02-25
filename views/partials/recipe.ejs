@@ -1,0 +1,9 @@
+<div class="recipe-container">
+    <% recipes.forEach(recipe => { %>
+        <div class="recipe-box" onclick="window.location.href='/recipe/<%= recipe.id %>'">
+            <img src="<%= recipe.image %>" alt="<%= recipe.name %>">
+            <h3><%= recipe.name %></h3>
+            <p>Cooking Time: <%= recipe.cookTimeMinutes %> min</p>
+        </div>
+    <% }); %>
+</div>

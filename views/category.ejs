@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Blogs</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 id="categoryTitle" style="text-align: center; color: #333;">Category Blogs</h2>
+        <div id="blogsContainer" class="blog-grid"></div>
+    </div>
+
+    <script>
+        async function fetchCategoryBlogs() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get("category");
+
+            if (!category) {
+                document.getElementById("blogsContainer").innerHTML = "<p>No category provided.</p>";
+                return;
+            }
+
+            document.getElementById("categoryTitle").textContent = `Category: ${category}`;
+
+            try {
+                let response = await fetch(`/api/blogs/category/${category}`);
+                let blogs = await response.json();
+                let container = document.getElementById("blogsContainer");
+
+                container.innerHTML = blogs.length
+                    ? blogs.map(blog => `
+                        <div class="blog-card">
+                            <img src="${blog.coverImageURL || 'default.jpg'}" class="blog-img">
+                            <div class="blog-content">
+                                <h3>${blog.title}</h3>
+                                <p>${blog.description}</p>
+                                <a href="/blog/${blog._id}" class="btn">Read More</a>
+                            </div>
+                        </div>
+                    `).join("")
+                    : "<p>No blogs found in this category.</p>";
+            } catch (error) {
+                console.error("Error fetching blogs:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchCategoryBlogs);
+    </script>
+</body>
+</html>

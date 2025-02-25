@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style1.css">
+    <title>Homepage</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <%- include('./partials/hero') %>
+    <div class="flex items-center justify-center margin-bottom-10px h-20">
+     
+      <div  class="flex items-center justify-center">
+        <h1 class="text-2xl text-center font-bold">Latest Blogs</h1>
+      </div>
+    </div>
+    
+     
+    <div class="container mt-3">
+      <% blogs.slice(0, 5).forEach(blog => { %> 
+        <div class="row align-items-center mb-3" style="border-bottom: 1px solid #ddd; padding-bottom: 15px;">
+          <div class="col-md-8">
+            <h3 class="card-title" style="font-size: 22px; font-weight: bold;"><%= blog.title %></h3>
+            <p class="text-muted"><%= blog.description || "No description available." %></p>
+            <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-2">Read More</a>
+          </div>
+          <div class="col-md-4">
+            <img src="<%= blog.coverImageURL %>" class="img-fluid rounded" style="width: 100%; height: 200px; object-fit: cover;">
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    
+    
+    
+
+
+
+ 
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<nav
+  class="navbar navbar-expand-lg   " style="z-index: 1050;"
+  
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Blogify</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="/" href="#">Home</a>
+        </li>
+        <% if (locals.user) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog/add-new">Add Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/favorites">Favorites</a>
+        </li>
+        <!-- <li class="nav-item">
+        <form action="/" method="GET" class="flex items-center space-x-2" class="mb-4">
+        <input type="text" name="category" placeholder="Search by category" class="px-3 py-2 w-72 rounded-md border border-gray-700 bg-gray-800 text-white focus:ring focus:ring-gray-500 focus:outline-none" value="<%= category || '' %>" class="form-control" style="max-width: 300px; display: inline-block;">
+        <button type="submit"  class=" bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-black font-medium transition" >Search</button>
+      </form>
+        </li> -->
+       
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+          <%= locals.user.fullName %>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+          </ul>
+        </li>
+        <% } else {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signup">Create Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signin">Signin</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="container mt-4">
+  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+</div>
+<% } %>
