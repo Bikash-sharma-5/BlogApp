@@ -1,6 +1,6 @@
 # 📝 Blogify - A Full-Stack Blog App
 ![Screenshot 2025-02-25 124618](https://github.com/user-attachments/assets/b91ce606-3e9b-4b96-abf4-f5526fc750be)
-visit:https://bloggapp-mwkjz4v52-bikash-kumar-sharmas-projects-0c6fd68a.vercel.app
+visit: https://bloggapp-mwkjz4v52-bikash-kumar-sharmas-projects-0c6fd68a.vercel.app<br/>
 Blogify is a simple blogging platform built with **Node.js**, **Express**, **MongoDB**, and **EJS**. Users can create, read, update, and delete blogs, add comments, and authenticate using cookies.
 
 ---
